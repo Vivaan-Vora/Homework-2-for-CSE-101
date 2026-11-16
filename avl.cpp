@@ -123,10 +123,18 @@ const Node* findNode(const Node* root, int departure) {
     return root;
 }
 
+// remembers the best candidate >= departure while going down
 const Node* earliestNode(const Node* root, int departure) {
-    (void)root;
-    (void)departure;
-    return nullptr; // TODO
+    const Node* best = nullptr;
+    while (root) {
+        if (root->data.departure >= departure) {
+            best = root;
+            root = root->left;
+        } else {
+            root = root->right;
+        }
+    }
+    return best;
 }
 
 void findRange(const Node* root, int start, int end,
