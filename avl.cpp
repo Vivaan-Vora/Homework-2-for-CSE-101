@@ -13,10 +13,13 @@ void updateHeight(Node* node) {
     node->height = 1 + (left > right ? left : right);
 }
 
+// left height minus right height
 int balanceFactor(const Node* node) {
-    (void)node;
-    return 0;
-} // TODO
+    if (!node) {
+        return 0;
+    }
+    return nodeHeight(node->left) - nodeHeight(node->right);
+}
 
 Node* rotateLeft(Node* root) {
     return root;
