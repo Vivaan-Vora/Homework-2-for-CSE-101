@@ -111,10 +111,16 @@ Node* deleteNode(Node* root, int departure) {
     return rebalance(root);
 }
 
+// walks down the tree to the exact time
 const Node* findNode(const Node* root, int departure) {
-    (void)root;
-    (void)departure;
-    return nullptr; // TODO
+    while (root && root->data.departure != departure) {
+        if (departure < root->data.departure) {
+            root = root->left;
+        } else {
+            root = root->right;
+        }
+    }
+    return root;
 }
 
 const Node* earliestNode(const Node* root, int departure) {
