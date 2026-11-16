@@ -1,10 +1,10 @@
 // Implement only this file. See avl.h and the assignment for contracts.
 #include "avl.h"
 
+// cached height, or 0 for an empty subtree
 int nodeHeight(const Node* node) {
-    (void)node;
-    return 0;
-} // TODO
+    return node ? node->height : 0;
+}
 
 void updateHeight(Node* node) {
     (void)node;
