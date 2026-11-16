@@ -21,9 +21,15 @@ int balanceFactor(const Node* node) {
     return nodeHeight(node->left) - nodeHeight(node->right);
 }
 
+// right child moves up, root becomes its left child
 Node* rotateLeft(Node* root) {
-    return root;
-} // TODO
+    Node* newRoot = root->right;
+    root->right = newRoot->left;
+    newRoot->left = root;
+    updateHeight(root);
+    updateHeight(newRoot);
+    return newRoot;
+}
 
 Node* rotateRight(Node* root) {
     return root;
