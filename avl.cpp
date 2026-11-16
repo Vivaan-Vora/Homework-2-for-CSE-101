@@ -73,9 +73,42 @@ Node* insertNode(Node* root, Node* newNode) {
     return rebalance(root);
 }
 
+// unlinks the smallest node into minNode and returns the rebalanced subtree
+static Node* removeMin(Node* root, Node*& minNode) {
+    if (!root->left) {
+        minNode = root;
+        return root->right;
+    }
+    root->left = removeMin(root->left, minNode);
+    return rebalance(root);
+}
+
+// bst delete; a node with two children is replaced by its in-order successor
 Node* deleteNode(Node* root, int departure) {
-    (void)departure;
-    return root; // TODO
+    if (!root) {
+        return nullptr;
+    }
+    if (departure < root->data.departure) {
+        root->left = deleteNode(root->left, departure);
+    } else if (departure > root->data.departure) {
+        root->right = deleteNode(root->right, departure);
+    } else {
+        Node* left = root->left;
+        Node* right = root->right;
+        delete root;
+        if (!left) {
+            return right;
+        }
+        if (!right) {
+            return left;
+        }
+        Node* successor = nullptr;
+        Node* rest = removeMin(right, successor);
+        successor->right = rest;
+        successor->left = left;
+        return rebalance(successor);
+    }
+    return rebalance(root);
 }
 
 const Node* findNode(const Node* root, int departure) {
