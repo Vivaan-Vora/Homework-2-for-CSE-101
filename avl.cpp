@@ -6,9 +6,12 @@ int nodeHeight(const Node* node) {
     return node ? node->height : 0;
 }
 
+// height is 1 + the taller child
 void updateHeight(Node* node) {
-    (void)node;
-} // TODO
+    int left = nodeHeight(node->left);
+    int right = nodeHeight(node->right);
+    node->height = 1 + (left > right ? left : right);
+}
 
 int balanceFactor(const Node* node) {
     (void)node;
