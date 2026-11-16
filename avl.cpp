@@ -31,9 +31,15 @@ Node* rotateLeft(Node* root) {
     return newRoot;
 }
 
+// left child moves up, root becomes its right child
 Node* rotateRight(Node* root) {
-    return root;
-} // TODO
+    Node* newRoot = root->left;
+    root->left = newRoot->right;
+    newRoot->right = root;
+    updateHeight(root);
+    updateHeight(newRoot);
+    return newRoot;
+}
 
 Node* rebalance(Node* root) {
     return root;
