@@ -41,9 +41,24 @@ Node* rotateRight(Node* root) {
     return newRoot;
 }
 
+// fixes the four imbalance cases (LL, LR, RR, RL) with rotations
 Node* rebalance(Node* root) {
+    updateHeight(root);
+    int bf = balanceFactor(root);
+    if (bf > 1) {
+        if (balanceFactor(root->left) < 0) {
+            root->left = rotateLeft(root->left);
+        }
+        return rotateRight(root);
+    }
+    if (bf < -1) {
+        if (balanceFactor(root->right) > 0) {
+            root->right = rotateRight(root->right);
+        }
+        return rotateLeft(root);
+    }
     return root;
-} // TODO
+}
 
 Node* insertNode(Node* root, Node* newNode) {
     (void)newNode;
