@@ -137,11 +137,20 @@ const Node* earliestNode(const Node* root, int departure) {
     return best;
 }
 
+// in-order walk that skips subtrees outside [start, end]
 void findRange(const Node* root, int start, int end,
                const Node* results[], int& count) {
-    (void)root;
-    (void)start;
-    (void)end;
-    (void)results;
-    (void)count; // TODO
+    if (!root || start > end) {
+        return;
+    }
+    int time = root->data.departure;
+    if (start < time) {
+        findRange(root->left, start, end, results, count);
+    }
+    if (start <= time && time <= end) {
+        results[count++] = root;
+    }
+    if (time < end) {
+        findRange(root->right, start, end, results, count);
+    }
 }
