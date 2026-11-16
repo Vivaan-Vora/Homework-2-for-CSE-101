@@ -60,9 +60,17 @@ Node* rebalance(Node* root) {
     return root;
 }
 
+// normal bst insert, then rebalance on the way back up
 Node* insertNode(Node* root, Node* newNode) {
-    (void)newNode;
-    return root; // TODO
+    if (!root) {
+        return newNode;
+    }
+    if (newNode->data.departure < root->data.departure) {
+        root->left = insertNode(root->left, newNode);
+    } else {
+        root->right = insertNode(root->right, newNode);
+    }
+    return rebalance(root);
 }
 
 Node* deleteNode(Node* root, int departure) {
